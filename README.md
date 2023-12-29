@@ -13,7 +13,7 @@ Terminal som är lite roligare att använda än den förinstallerade cmd. Ladda 
 #### cmder
 En annan terminal som kommer med Git för installerat. Ladda ned från [deras hemsida](https://cmder.app/)
 ### Git (Valfri)
-Att använda sig av Git är helt valfritt då det inte är ett kurskrav. Ni kommer kunna ta del av materialet oavsett. Om ni har Git installerat kan ni öppna terminalen och klistra in git clone git@github.com:jonken-git/webbserverprogrammering.git
+Att använda sig av Git är helt valfritt då det inte är ett kurskrav. Ni kommer kunna ta del av materialet oavsett. Om ni har Git installerat kan ni öppna terminalen och klistra in ```git clone git@github.com:jonken-git/webbserverprogrammering.git```. Då kommer mappen sparas där ni står i terminalen.
 
 
 
