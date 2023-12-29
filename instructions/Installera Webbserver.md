@@ -7,6 +7,7 @@
 4. Öppna cmd som administratör. Följ installationsprocessen som står i readme-filen.
 5. Starta _Apache Monitor_ (C:/apache24/bin/Apache Monitor.exe) och starta din webbserver därifrån.
 6. Surfa till _localhost_ i din webbläsare för att se om det funkar. Om det funkar ser du antingen en massa information om Apache eller bara texten _"It works!"_.
+
 *GÅ BARA VIDARE OM STEG 1 FUNKAR*
 
 ## 2. PHP
@@ -19,6 +20,7 @@
     + PHPIniDir "C:/php74"
 5. Starta om din webbserver via _Apache Monitor_ och se att ikonen blir grön.
 6. Surfa till _localhost_ och se att resultatet är som tidigare.
+
 *GÅ BARA VIDARE OM STEG 1 OCH 2 FUNKAR*
 
 ## 3. WWW
