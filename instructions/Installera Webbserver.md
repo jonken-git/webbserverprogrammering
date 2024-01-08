@@ -15,7 +15,7 @@
 1. Surfa till [PHP](https://windows.php.net) och gå till **Downloads**.
 1. Leta reda på version 8.2 av PHP som är Thread Safe.
 1. Lägg i roten till C: och döp mappen till php82. Sökvägen ska bli **C:/php82**
-1. Navigera till **httpd.conf** i din **C:/apache24/conf**-mapp och ändra eller lägg till föjande
+1. Navigera till **httpd.conf** i **C:/apache24/conf** och ändra eller lägg till föjande
     ```apacheconf
     # PHP modul för apache
     LoadModule php_module "C:/php82/php8apache2_4.dll"
@@ -29,7 +29,7 @@
 
 *GÅ BARA VIDARE OM STEG 1 OCH 2 FUNKAR*
 ### 2.1 PHP Path
-Lägg till PHP till dina miljövariabler.
+Lägg till PHP till dina miljövariabler. Användbart om du vill testa något enkelt direkt via konsolen genom att skriva ```php file-name.php```.
 1. Tryck på Windowsknappen och sök efter **Miljövariabler**, välj alternativet som heter något i stil med **Redigera systemets miljövariabler**. 
     1. Välj "Miljövariabler"
     1. I den övre listan, markera variabeln **Path** och välj **Redigera...**
@@ -41,8 +41,9 @@ Lägg till PHP till dina miljövariabler.
         1. Start om datorn.
 
 ## 3. WWW
-1. Skapa en till mapp i C: som heter www.
-1. Öppna **httpd.conf** och sök efter "htdocs" (du ska få 2 träffar). Där ska du ändra sökvägen till mappen du precis skapat. Alltså **C:/www**. Om du vill kan du skata en variabel till din sökväg på följande sätt.
+Skapa upp mapp som du kommer ha alla dina projekt i.
+1. Skapa mappen **C:/www**.
+1. Öppna **httpd.conf** och sök efter "htdocs" (du ska få 2 träffar). Där ska du ändra sökvägen till mappen du precis skapat. Skapa en variabel med hjälp av ```define``` som du kallar **WWWROOT** med sökvägen.
     ```apacheconf
     # My server root 
     Define WWWROOT "C:/www"
@@ -50,7 +51,7 @@ Lägg till PHP till dina miljövariabler.
     <Directory "${WWWROOT}">
         # 
         # Possible valies for the Options directive are "None", "All"
-        ...
+        # ...
     </Directory>
     ```
 1. Scrolla ner lite eller sök efter "DirectoryIndex" och lägg till "index.php" framför "index.html". Det berättar för din webbserver att leta efter antingen index.php eller index.html om du har surfat till en mapp.
@@ -68,7 +69,33 @@ Lägg till PHP till dina miljövariabler.
 Om du inte ser något testa att starta om datorn
 
 ## 4. PHP Konfiguration
+Din PHP konfiguration, kan komma till nytta längre fram.
 1. Gå till php-mappen **C:/php82**. Här kan du hitta 2 stycken filer, en som heter **php.ini-development** och en som heter **php.ini-production**.
 1. Kopiera den som heter **development** och döp den till php.ini.
 1. Starta om din webbserver med **Apache Monitor** och se att ikonen blir grön.
 1. Surfa till **localhost** och leta efter **Loaded Configuration File** som bör visa **php.ini**-filen du precis skapade.
+
+## 5. Hosts och Vhosts
+Möjliggör så att du kan surfa till till exempel ```mywebsite.test``` istället för ```localhost/mywebsite/index.php```.
+1. Gå till **C:/Windows/System32/drivers/etc** och öppna filen **hosts**
+1. Lägg till följande och spara, du kan behöva spara som administratör.
+    ```hosts
+    127.0.0.1   localhost
+    127.0.0.1   mysite.test # Du kan kalla den vad du vill, banan.test eller katt.test funkar lika bra.
+    ```
+1. Gå till **C:/apache24/conf/extra/** och öppna filen **httpd-vhosts.conf**.
+1. Lägg till följande. Notera att "mysite" ska bytas ut till det du la till i din **hosts**-fil i steget innan.
+```apacheconf
+# Peka på din www-root
+<VirualHost *:80>
+    DocumentRoot "${WWWROOT}"
+    ServerName localhost
+</VirtualHost>
+# Peka på mapp inuti din www-root.
+<VirualHost *:80>
+    DocumentRoot "${WWWROOT}/mysite"
+    ServerName mysite.test
+</VirtualHost>
+```
+1. Spara och start om din webbserver med **Apache Monitor**.
+Nu kan du skapa en mapp inuti www ge den en index.php och sen surfa till adressen du angav ovan. Om du vill göra ett nytt projekt skapar du en till mapp i din www-root och lägger sedan till det i **hosts** och **httpd-vhosts.conf** på samma sätt.
