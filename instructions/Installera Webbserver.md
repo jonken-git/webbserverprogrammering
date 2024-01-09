@@ -15,7 +15,7 @@
 1. Surfa till [PHP](https://windows.php.net) och gå till **Downloads**.
 1. Leta reda på version 8.2 av PHP som är Thread Safe.
 1. Lägg i roten till C: och döp mappen till php82. Sökvägen ska bli **C:/php82**
-1. Navigera till **httpd.conf** i **C:/apache24/conf** och ändra eller lägg till föjande
+1. Navigera till **httpd.conf** i **C:/apache24/conf** lägg till föjande i botten
     ```apacheconf
     # PHP modul för apache
     LoadModule php_module "C:/php82/php8apache2_4.dll"
@@ -79,23 +79,40 @@ Din PHP konfiguration, kan komma till nytta längre fram.
 Möjliggör så att du kan surfa till till exempel ```mywebsite.test``` istället för ```localhost/mywebsite/index.php```.
 1. Gå till **C:/Windows/System32/drivers/etc** och öppna filen **hosts**
 1. Lägg till följande och spara, du kan behöva spara som administratör.
-    ```hosts
+    ```hostsconf
     127.0.0.1   localhost
     127.0.0.1   mysite.test # Du kan kalla den vad du vill, banan.test eller katt.test funkar lika bra.
+    127.0.0.1   phpmyadmin.test # Kommer användas senare
     ```
+    Här säger du åt din dator att kolla om "hemsidorna" localhost och mysite.test finns på ip-adressen 127.0.0.1 istället för att routas ut på internet.
 1. Gå till **C:/apache24/conf/extra/** och öppna filen **httpd-vhosts.conf**.
 1. Lägg till följande. Notera att "mysite" ska bytas ut till det du la till i din **hosts**-fil i steget innan.
-```apacheconf
-# Peka på din www-root
-<VirualHost *:80>
-    DocumentRoot "${WWWROOT}"
-    ServerName localhost
-</VirtualHost>
-# Peka på mapp inuti din www-root.
-<VirualHost *:80>
-    DocumentRoot "${WWWROOT}/mysite"
-    ServerName mysite.test
-</VirtualHost>
-```
-1. Spara och start om din webbserver med **Apache Monitor**.
+    ```apacheconf
+    # Peka på din www-root
+    <VirtualHost *:80>
+        DocumentRoot "${WWWROOT}"
+        ServerName localhost
+    </VirtualHost>
+    # Peka på mapp inuti din www-root.
+    <VirtualHost *:80>
+        DocumentRoot "${WWWROOT}/mysite"
+        ServerName mysite.test
+    </VirtualHost>
+    <VirtualHost *:80>
+        DocumentRoot "${WWWROOT}/phpmyadmin"
+        ServerName phpmyadmin.test
+    </VirtualHost>
+    ```
+    Här listar du vilka hemsidor som finns på din webbserver. 
+1. Gå till **C:/apache24/conf** och öppna **httpd.conf**.
+    1. Leta reda på **vhost_alias_module** och ta bort **#**-symbolen så att det blir inkluderad.
+    1. Lägg till följande för att säga åt apache att läsa in din vhosts-konfiguration
+        ```apacheconf
+            Include conf/extra/httpd-vhosts.conf
+        ```
+1. Spara och start om din webbserver med **Apache Monitor**. Testa att surfa till **mysite.test** (eller det du döpte den till), kom ihåg att ha en **index.php** fil i mappens root.
+
 Nu kan du skapa en mapp inuti www ge den en index.php och sen surfa till adressen du angav ovan. Om du vill göra ett nytt projekt skapar du en till mapp i din www-root och lägger sedan till det i **hosts** och **httpd-vhosts.conf** på samma sätt.
+
+## Bra jobbat!
+Nu har du en egen webbserver installerad

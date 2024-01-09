@@ -1,0 +1,57 @@
+# Installera Databas
+En databas behövs så att du kan skapa och redigera innehåll på dina hemsidor.
+## 1. MySQL
+1. Gå till [MySQL](https://dev.mysql.com/downloads/) och välj MySQL Community Server.
+1. Välj Windows (x86, 64-bit), MSI Installer.
+1. Klicka igenom installationen, var noga här.
+    1. När du får 3 alternativ väljer du "typical", den borde vara överst.
+    1. När installationen är klar se till att ha kryssat i "Run MySQL Configurator" innan du klickar på "Finish".
+1. I MySQL Configurator klicka "Next" två gånger eller tills rubriken säger "Accounts and Roles". I de två fälten "MySQL Root Password" och "Repeast Password" fyller du i "root" med småbokstäver. Det här är lösenordet som du kommer använda för att ansluta till din databas. Klicka "Next".
+1. Se till "Start the MySQL Server at System Startup" och "Standard System Account" är ikryssade, ändra inget annat. Klicka "Next".
+1. Se till att alternativet för full access är ikryssat (borde vara överst). Klicka "Next".
+1. Kryssa i "Create World Database", då får du en testdatabas som heter "world". Klicka "Next".
+1. Välj "Execute" för att göra inställningarna, klicka "Next" och "Finish" för att bli klar.
+
+## 2. PHP-inställningar
+1. Öppna **php.ini**, du kan använda ```phpinfo()``` för att ta reda på var den finns.
+1. Sök på "extension_dir" och ändra den för Windows till:
+    ```apacheconf
+    ; On windows
+    extension_dir = "C:\php82\ext"
+    ```
+    Notera snedstrecken!
+1. Sök på "extension" och leta tills du hittar en lista med cirka 30 extensions. Lägg till eller ta bort semikolonet vid tillägget "mysqli"
+    ```apacheconf
+    extension="mysqli"
+    ```
+## 3. PHPMyAdmin
+1. Gå till [phpMyAdmin](https://www.phpmyadmin.net/downloads/) och hämta hem senaste versionens **.zip** (ta all-languages om du vill ha på svenska.)
+1. Packa upp och lägg i din **www**-mapp och döp den till **phpmyadmin**.
+1. Kopiera **config.sample.inc.php** och döp till **config.inc.php**.
+1. Ersätt eller lägg till följande:
+    ```php
+    $cfg['Servers'][$i]['AllowNoPassword'] = true; // Så att vi kan logga in i phpmyadmin utan lösenord
+    $cfg['Servers'][$i]['extension'] = 'mysqli';
+    ```
+1. Starta om din webbserver med **ApacheMonitor** och surfa till [phpmyadmin.test](http://phpmyadmin.test)
+
+## 4. Testa att det funkar
+I phpmyadmin ska du ha en lista med databaser till vänster, kolla att du har en som heter "world". Om du inte har en missade du isåfall att installera den när du installerade databasen i [Steg 1](#user-content-1-mysql).
+Klistra in följande kodblock i **index.php** i rooten av din **www**-mapp.
+```php
+$conn = new mysqli("localhost", "root", "root", "world");
+$query = <<<SQL
+    SELECT * FROM country
+SQL;
+$res = $conn->query($query);
+while($rew = $res->fetch_assoc()) {
+    ehco("<code style='1px solid black'>");
+    foreach($row as $key => $val){
+        echo("[$key] => $val<br>");
+    }
+    echo("</code>");
+}
+```
+Om du nu surfar till localhost så ska du se en stor output med data från massor av länder.
+## Grattis!
+Du har nu en helt egen databas.
