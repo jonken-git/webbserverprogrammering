@@ -4,10 +4,11 @@ Här kommer ni kunna ta del av kursmaterialet.
 ## Programvara
 Det enda ni egentligen behöver är VSCode, de andra sakerna som är listade är helt valfria.
 ### VSCode
-Programmet som vi skriver vår kod i. Det finns jättemycket bra plugins som hjälper oss skriva bättre och säkrare kod
-[Ladda ned VSCode](https://code.visualstudio.com/download)
+Programmet som vi skriver vår kod i. Det finns jättemycket bra plugins som hjälper oss skriva bättre och säkrare kod.
+- [Ladda ned VSCode](https://code.visualstudio.com/download)
 #### Plugins
 + [Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
+    Ger oss intelligenta förslag när vi skriver kod och hjälper oss med till exempel paramterar till funktioner.
 ### Terminal
 Kommer användas för att installera webbserver på era datorer. Ni kan använda den inbygga cmd eller installera en valfri, här är två förslag.
 #### Windows Terminal
