@@ -25,7 +25,7 @@ Själva kommunikationen med databasen kan man göra direkt från Windows via ter
 När vi jobbar med webbplatser så sköter vi all kommunikation via PHP som skickar meddelanden till MySQL och får svar tillbaka med den informationen som behövs.
 
 ### Vad MySQL består av
-![TW Bild Databas exempel](image.png)
+![TW Bild Databas exempel](../assets/images/database-example-removebg-preview.png)
 MySQL är en **databashanterare** som består av en eller flera **databaser**. Oftast har man en databas
 per webbplats, så driver du tre skilda webbplatser så har du sannolikt tre databaser.
 
@@ -47,7 +47,7 @@ Låt oss titta på ett exempel på en tabell och titta hur vi kan arbeta med den
 
 Tabell: personer
 
-| id | förnamn | efternamn | ålder |
+| id | fornamn | efternamn | alder |
 |---|---|---|-----|
 | 1 | Adam | Eriksson | 17 |
 | 2 | Nils | Andersson | 18 |
@@ -73,7 +73,7 @@ eftersom det inte har någon betydelse som funktion, dock blir koden lättare f�
 arbeta med om man försöker hålla sig till det tankesättet. Efter ovanstående INSERT-fråga ser
 tabellen ut såhär:
 
-| id | förnamn | efternamn | ålder |
+| id | fornamn | efternamn | alder |
 |---|---|---|-----|
 | 1 | Adam | Eriksson | 17 |
 | 2 | Nils | Andersson | 18 |
@@ -94,7 +94,7 @@ SELECT * FROM personer
 
 Det som hämtas nu är alltså den fullständiga tabellen med allt innehåll, alltså:
 
-| id | förnamn | efternamn | ålder |
+| id | fornamn | efternamn | alder |
 |---|---|---|-----|
 | 1 | Adam | Eriksson | 17 |
 | 2 | Nils | Andersson | 18 |
@@ -107,7 +107,7 @@ Om du bara vill hämta fälten id och ålder och totalt ignorerar namnen kan du 
 ... och få följande resultat:
 
  Tabell: personer
-| id | ålder |
+| id | alder |
 |----|-----|
 | 1 | 17 |
 | 2 | 18 |
@@ -118,21 +118,23 @@ Om du bara vill hämta fälten id och ålder och totalt ignorerar namnen kan du 
 Du kan alltid manuellt välja vilka fält du vill hämta, **\*** hämtar alla, annars skriver du alla fält du vill ha kommaseparerade med varandra. ```(SELECT a,b,c,d FROM tabell)```.
 Om du inte vill hämta alla rader, utan t.ex. alla personer som är äldre än 20 så kan du skriva:
 ```SELECT * FROM personer WHERE alder > 20```
+
 Du kan även kombinera WHERE med att bara hämta vissa utvalda fält, som t.ex:
-```SELECT namn FROM personer WHERE alder >= 21```
+```SELECT fornamn FROM personer WHERE alder >= 21```
 
 Vilket ger följande resultat:
 
 Tabell: personer
-namn
-Arnold Sten
-Kalle Svensson
-Lars Stenberg
-Det går att skriva väldigt avancerade SELECT-frågor där man kan kombinera diverse påståenden fritt
-för att bara hämta precis det man behöver.
 
+| namn |
+|----|
+| Arnold Sten |
+| Kalle Svensson |
+| Lars Stenberg |
+
+Det går att skriva väldigt avancerade SELECT-frågor där man kan kombinera diverse påståenden fritt för att bara hämta precis det man behöver.
+```sql
 SELECT * FROM personer WHERE id = 1 OR (ålder > 20 AND ålder <= 40)
-
-Vad gör ovanstående rad? Jo, den hämtar alla rader som har id 1 eller som har en person vars ålder
-är större än 20 men samtidigt max 40 (mindre eller lika med 40). Den hämtar alltså _Adam_ och _Kalle_!
+```
+Vad gör ovanstående rad? Jo, den hämtar alla rader som har id 1 eller som har en person vars ålder är större än *20* med samtidigt max *40* (mindre eller lika med *40*). Den hämtar alltså **Adam** och **Kalle**!
 
