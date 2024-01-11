@@ -47,12 +47,12 @@ Låt oss titta på ett exempel på en tabell och titta hur vi kan arbeta med den
 
 Tabell: personer
 
-| id | namn | ålder |
-|---|------|-----|
-| 1 | Adam | Eriksson 17 |
-| 2 | Nils | Andersson 18 |
-| 3 | Arnold | Sten 55 |
-| 4 | Kalle  | Svensson 21 |
+| id | förnamn | efternamn | ålder |
+|---|---|---|-----|
+| 1 | Adam | Eriksson | 17 |
+| 2 | Nils | Andersson | 18 |
+| 3 | Arnold | Sten | 55 |
+| 4 | Kalle  | Svensson | 21 |
 
 #### Mata in data - INSERT
 I den här tabellen har vi några personer från början så ska vi titta hur man gör för att stoppa in ytterligare en person i tabellen.
@@ -73,59 +73,53 @@ eftersom det inte har någon betydelse som funktion, dock blir koden lättare f�
 arbeta med om man försöker hålla sig till det tankesättet. Efter ovanstående INSERT-fråga ser
 tabellen ut såhär:
 
-Tabell: personer
-id namn ålder
-1 Adam Eriksson 17
-2 Nils Andersson 18
-3 Arnold Sten 55
-4 Kalle Svensson 21
-5 Lars Stenberg 60
+| id | förnamn | efternamn | ålder |
+|---|---|---|-----|
+| 1 | Adam | Eriksson | 17 |
+| 2 | Nils | Andersson | 18 |
+| 3 | Arnold | Sten | 55 |
+| 4 | Kalle  | Svensson | 21 |
+| 5 | Lars  | Stenberg | 21 |
 
 Alltså, en ny rad med id 5 har skapats, med Lars Stenberg, 60.
 
-
-```
-Webbutveckling 1, WEBWEU01 Tobias Wetterskog
-```
-#### Hämta data (SELECT)
+#### Hämta data - SELECT
 
 Om du istället vill hämta information från tabellen använder du en SELECT-fråga. Om du vill hämta
 alla rader och alla fält från tabellen personer så kan du skriva såhär:
 
+```sql
 SELECT * FROM personer
+```
 
 Det som hämtas nu är alltså den fullständiga tabellen med allt innehåll, alltså:
 
-Tabell: personer
-id namn ålder
-1 Adam Eriksson 17
-2 Nils Andersson 18
-3 Arnold Sten 55
-4 Kalle Svensson 21
-5 Lars Stenberg 60
-**Om du bara vill hämta fälten id och ålder och totalt ignorerar namnen kan du istället skriva:**
+| id | förnamn | efternamn | ålder |
+|---|---|---|-----|
+| 1 | Adam | Eriksson | 17 |
+| 2 | Nils | Andersson | 18 |
+| 3 | Arnold | Sten | 55 |
+| 4 | Kalle  | Svensson | 21 |
+| 5 | Lars  | Stenberg | 21 |
 
-SELECT id, ålder from personer
-
+Om du bara vill hämta fälten id och ålder och totalt ignorerar namnen kan du istället skriva:
+```SELECT id, ålder from personer```
 ... och få följande resultat:
 
-Tabell: personer
-id ålder
-1 17
-2 18
-3 55
-4 21
-5 60
+ Tabell: personer
+| id | ålder |
+|----|-----|
+| 1 | 17 |
+| 2 | 18 |
+| 3 | 55 |
+| 4 | 21 |
+| 5 | 60 |
 
-Du kan alltid manuellt välja vilka fält du vill hämta. * hämtar alla, annars skriver du alla fält du vill ha
-kommaseparerade med varandra. (SELECT a,b,c,d FROM tabell)
+Du kan alltid manuellt välja vilka fält du vill hämta, **\*** hämtar alla, annars skriver du alla fält du vill ha kommaseparerade med varandra. ```(SELECT a,b,c,d FROM tabell)```.
 Om du inte vill hämta alla rader, utan t.ex. alla personer som är äldre än 20 så kan du skriva:
-
-SELECT * FROM personer WHERE alder > 20
-
+```SELECT * FROM personer WHERE alder > 20```
 Du kan även kombinera WHERE med att bara hämta vissa utvalda fält, som t.ex:
-
-SELECT namn FROM personer WHERE alder >= 21
+```SELECT namn FROM personer WHERE alder >= 21```
 
 Vilket ger följande resultat:
 
