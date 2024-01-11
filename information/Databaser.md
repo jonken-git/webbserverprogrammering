@@ -1,30 +1,29 @@
 # Databaser
-## Kapitel 17 MySQL och andra databaser
 
-### Allmänt om databaser
+## Allmänt om databaser
 
-#### När de används
+### När de används
 
 En stor del av, eller kanske alla webbplatser du besöker ute på nätet har något system för att hantera sitt innehåll. En gästbok, eller ett forum eller en site med nyheter har i regel någon typ av formulär där man kan skriva information som sedan lagras dynamiskt på webbservern. Sedan kanske en administratör kan logga in och ändra denna text och allt detta hanteras helt utan att någon behöver ändra något i HTML-koden.
 Databaser används i samband med i princip alla kända webbplatser, allt från nyhetssiter, communityn, bloggar till avancerade verktyg såsom simulatorer och betalsystem.
 
-#### Olika databassystem
+### Olika databassystem
 
 För att lagra något i en databas så behöver man först och främst ett databashanteringssystem. Det finns flera olika stora system, några av de största är MySQL, Microsoft SQL (Mssql) och Oracle. 
 Alla har olika styrkor och svagheter, men det spelar i regel ingen större roll vilket som används rent praktiskt eftersom de är ganska lika i både hur de används och hur de presterar. Men när man arbetar med PHP så är det överlägset vanligast att använda MySQL, vilket är för att PHP har ett väldigt utbrett stöd för det och för att MySQL både är blixtsnabbt, lättanvänt och gratis.
 
-### MySQL
+## MySQL
 
 MySQL är det databassystem vi kommer att använda oss av framöver. Det är gratis, det är ursprungligen svenskt (_MySQL AB_ i Uppsala) och det är kanske den vanligaste databashanteraren som finns, vilket gör det väldigt lätt att hitta lösningar på problem på nätet eftersom det finns massor av kompetenta databastekniker.
 
-### Hur man arbetar med en databas
+## Hur man arbetar med en databas
 
 Man arbetar med databaser genom att skriva kommandon, ungefär som programmering. Du kan skriva ett kommando som "jag vill stoppa in talet 7 och texten 'hej' i databasen". Man kan även formulera "jag vill hämta alla personer i databasen som heter 'Kalle'". Båda dessa kan formuleras med SQL (**S**tructured **Q**uery **L**anguage) som är det språket som används när man kommunicerar med databashanteraren.
 
 Själva kommunikationen med databasen kan man göra direkt från Windows via terminalen om man vill, eller att man laddar ned ett gränssnitt för att komma åt databasen på ett smidigt sätt. 
 När vi jobbar med webbplatser så sköter vi all kommunikation via PHP som skickar meddelanden till MySQL och får svar tillbaka med den informationen som behövs.
 
-### Vad MySQL består av
+## Vad MySQL består av
 ![TW Bild Databas exempel](../assets/images/database-example.png)
 
 MySQL är en **databashanterare** som består av en eller flera **databaser**. Oftast har man en databas
