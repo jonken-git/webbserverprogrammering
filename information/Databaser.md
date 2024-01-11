@@ -25,7 +25,7 @@ Själva kommunikationen med databasen kan man göra direkt från Windows via ter
 När vi jobbar med webbplatser så sköter vi all kommunikation via PHP som skickar meddelanden till MySQL och får svar tillbaka med den informationen som behövs.
 
 ### Vad MySQL består av
-![TW Bild Databas exempel](../assets/images/database-example-removebg-preview.png)
+![TW Bild Databas exempel](../assets/images/database-example.png)
 MySQL är en **databashanterare** som består av en eller flera **databaser**. Oftast har man en databas
 per webbplats, så driver du tre skilda webbplatser så har du sannolikt tre databaser.
 
