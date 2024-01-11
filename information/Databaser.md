@@ -45,7 +45,6 @@ När man kommunicerar med sin databas (oavsett om det är MySQL eller någon ann
 
 Låt oss titta på ett exempel på en tabell och titta hur vi kan arbeta med den.
 
-Tabell: personer
 
 | id | fornamn | efternamn | alder |
 |---|---|---|-----|
@@ -59,18 +58,18 @@ I den här tabellen har vi några personer från början så ska vi titta hur ma
 
 ```INSERT INTO my_table (field1, field2) VALUES(value1, value2)```
 
-Logiken är att frågan för att lägga in en rad i databasen med en INSERT-fråga inleds med INSERT INTO.
-Efter det skriver man tabellen som man ska lägga in innehållet i. Sedan anger man vilka fält som ska användas (field1, field2, fieldN) följt av ordet VALUES och alla värden (value1, value2, valueN).
+Logiken är att frågan för att lägga in en rad i databasen med en ```INSERT```-fråga inleds med ```INSERT INTO```.
+Efter det skriver man tabellen som man ska lägga in innehållet i. Sedan anger man vilka fält som ska användas (field1, field2, fieldN) följt av ordet ```VALUES``` och alla värden (value1, value2, valueN).
 
 Om vi ska skapa en person i tabellen som heter Lars Stenberg som är 60 år så skriver man såhär:
 ```sql
-INSERT INTO personer (namn, ålder) VALUES('Lars Stenberg', 60)
+INSERT INTO personer (fornamn, lastname, alder) VALUES('Lars', 'Stenberg', 60)
 ```
 
 De ord som ingår i språket MySQL, alltså allt förutom dina egna tabell- och fältnamn samt de värden
 som matas in skrivs med VERSALER (stora bokstäver). Det gör inget om man slarvar med det
 eftersom det inte har någon betydelse som funktion, dock blir koden lättare för dig att läsa och
-arbeta med om man försöker hålla sig till det tankesättet. Efter ovanstående INSERT-fråga ser
+arbeta med om man försöker hålla sig till det tankesättet. Efter ovanstående ```INSERT```-fråga ser
 tabellen ut såhär:
 
 | id | fornamn | efternamn | alder |
@@ -79,13 +78,13 @@ tabellen ut såhär:
 | 2 | Nils | Andersson | 18 |
 | 3 | Arnold | Sten | 55 |
 | 4 | Kalle  | Svensson | 21 |
-| 5 | Lars  | Stenberg | 21 |
+| 5 | Lars  | Stenberg | 60 |
 
 Alltså, en ny rad med id 5 har skapats, med Lars Stenberg, 60.
 
 #### Hämta data - SELECT
 
-Om du istället vill hämta information från tabellen använder du en SELECT-fråga. Om du vill hämta
+Om du istället vill hämta information från tabellen använder du en ```SELECT```-fråga. Om du vill hämta
 alla rader och alla fält från tabellen personer så kan du skriva såhär:
 
 ```sql
@@ -100,13 +99,12 @@ Det som hämtas nu är alltså den fullständiga tabellen med allt innehåll, al
 | 2 | Nils | Andersson | 18 |
 | 3 | Arnold | Sten | 55 |
 | 4 | Kalle  | Svensson | 21 |
-| 5 | Lars  | Stenberg | 21 |
+| 5 | Lars  | Stenberg | 60 |
 
 Om du bara vill hämta fälten id och ålder och totalt ignorerar namnen kan du istället skriva:
 ```SELECT id, ålder from personer```
 ... och få följande resultat:
 
- Tabell: personer
 | id | alder |
 |----|-----|
 | 1 | 17 |
@@ -119,12 +117,11 @@ Du kan alltid manuellt välja vilka fält du vill hämta, **\*** hämtar alla, a
 Om du inte vill hämta alla rader, utan t.ex. alla personer som är äldre än 20 så kan du skriva:
 ```SELECT * FROM personer WHERE alder > 20```
 
-Du kan även kombinera WHERE med att bara hämta vissa utvalda fält, som t.ex:
+Du kan även kombinera ```WHERE``` med att bara hämta vissa utvalda fält, som t.ex:
 ```SELECT fornamn FROM personer WHERE alder >= 21```
 
 Vilket ger följande resultat:
 
-Tabell: personer
 
 | namn |
 |----|
@@ -132,9 +129,41 @@ Tabell: personer
 | Kalle Svensson |
 | Lars Stenberg |
 
-Det går att skriva väldigt avancerade SELECT-frågor där man kan kombinera diverse påståenden fritt för att bara hämta precis det man behöver.
+Det går att skriva väldigt avancerade ```SELECT```-frågor där man kan kombinera diverse påståenden fritt för att bara hämta precis det man behöver.
 ```sql
-SELECT * FROM personer WHERE id = 1 OR (ålder > 20 AND ålder <= 40)
+SELECT * FROM personer WHERE id = 1 OR (alder > 20 AND alder <= 40)
 ```
-Vad gör ovanstående rad? Jo, den hämtar alla rader som har id 1 eller som har en person vars ålder är större än *20* med samtidigt max *40* (mindre eller lika med *40*). Den hämtar alltså **Adam** och **Kalle**!
+Vad gör ovanstående rad? Jo, den hämtar alla rader som har ```id``` 1  eller som har en person vars ålder är större än *20* med samtidigt max *40* (mindre eller lika med *40*). Den hämtar alltså **Adam** och **Kalle**!
 
+### Ta bort data - DELETE
+Om man kan skapa data kan det såklart också vara bra att kunna ta bort data. Det är dock något man ska vara försiktig med då det i vissa fall kan få oanade konsekvenser.
+| id | fornamn | efternamn | alder |
+|---|---|---|-----|
+| 1 | Adam | Eriksson | 17 |
+| 2 | Nils | Andersson | 18 |
+| 3 | Arnold | Sten | 55 |
+| 4 | Kalle  | Svensson | 21 |
+| 5 | Lars  | Stenberg | 60 |
+
+Vi föreställer oss att vi behöver ta bort Adam Eriksson från tabellen ovan använder vi oss av en ```DELETE```-fråga. Den är väldigt lik en ```SELECT```-fråga, skillnaderna är att vi inte anger några fält och att vi måste använda oss av ett ```WHERE```-villkor.
+```sql
+DELETE FROM personer WHERE id = 1
+```
+Vi kan använda andra villkor än id, för att ta bort Adam hade vi kunnat skriva ```WHERE firstname = 'Adam'```. Problemet då är att om vi har flera personer som heter Adam kommer vi ta dom också. Det är därför ofta bättre att använda ```id``` eller ett annat fält som är unikt, i tabellen för personer kunde vi haft personnummer som hade varit unikt.
+
+### Ändra data - UPDATE
+Ofta så vill vi ändra datan istället för att permanent ta bort den från vår databas. Precis som en ```DELETE```-fråga så måste en ```UPDATE```-fråga har ett ```WHERE```-villkor eftersom det alltid är en eller flera rader vi uppdaterar. Frågan inleds med ```UPDATE``` följt av tabellens namn. Efter det följer ```SET field1 = value1``` där **field1** är till exempel **fornamn** och **value1** är **Jesper**. Slutligen kommer ```WHERE```-villkoret. Så om vi behöver döpa om Arnold Sten till Arnold Stenberg istället skulle alltså det frågan se ut så här:
+```sql
+UPDATE personer
+SET lastname = 'Stenberg'
+WHERE id = 3
+```
+Notera att precis som vid ```DELETE``` så väljer jag att använda ```id``` som fält för mitt villkor så att jag inte skulle råka uppdatera andra rader i tabellen.
+Om vi nu hade hämtat alla användare från tabellen så kan vi se att efternamnet har ändrats för Arnold
+| id | fornamn | efternamn | alder |
+|---|---|---|-----|
+| 1 | Adam | Eriksson | 17 |
+| 2 | Nils | Andersson | 18 |
+| 3 | Arnold | Sten | 55 |
+| 4 | Kalle  | Svensson | 21 |
+| 5 | Lars  | Stenberg | 60 |
