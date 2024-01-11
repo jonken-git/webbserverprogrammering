@@ -26,6 +26,7 @@ När vi jobbar med webbplatser så sköter vi all kommunikation via PHP som skic
 
 ### Vad MySQL består av
 ![TW Bild Databas exempel](../assets/images/database-example.png)
+
 MySQL är en **databashanterare** som består av en eller flera **databaser**. Oftast har man en databas
 per webbplats, så driver du tre skilda webbplatser så har du sannolikt tre databaser.
 
