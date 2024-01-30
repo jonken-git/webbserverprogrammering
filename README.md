@@ -17,7 +17,7 @@ Terminal som är lite roligare att använda än den förinstallerade cmd. Ladda 
 En terminal som kommer med Git för installerat och har UNIX-liknande kommandon. Ladda ned från [deras hemsida](https://cmder.app/)
 
 ### Git
-Att använda sig av Git är helt valfritt då det inte är ett kurskrav. Ni kommer kunna ta del av materialet men det är kanske lite smidigare med git. Om ni har Git installerat kan ni öppna terminalen och klistra in ```git clone git@github.com:jonken-git/webbserverprogrammering.git```. Då kommer mappen sparas där ni står i terminalen.
+Att använda sig av Git är helt valfritt då det inte är ett kurskrav. Ni kommer kunna ta del av materialet oavsett om ni har git eller inte, det är mest om ni vill ha det lokalt på era datorer. Om ni har Git installerat kan ni öppna terminalen och klistra in ```git clone git@github.com:jonken-git/webbserverprogrammering.git```. Då kommer mappen sparas där ni står i terminalen.
 
 
 
